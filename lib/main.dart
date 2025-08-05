@@ -22,7 +22,10 @@ class _TodoScreenState extends State<TodoScreen> {
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.pink,
-          title: Text("Asli maal niche che"),
+          title: Text(
+            "Asli maal niche che",
+            style: TextStyle(color: Colors.white),
+          ),
           centerTitle: true,
           shadowColor: Colors.black,
           elevation: 5,
@@ -35,34 +38,55 @@ class _TodoScreenState extends State<TodoScreen> {
                 controller: tec1,
                 onChanged: (value) => {updateTodo(value)},
               ),
+              Padding(padding: EdgeInsetsGeometry.all(10)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
                     onPressed: () => addTodo(),
                     child: Text("Add To-do"),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.pink),
+                      foregroundColor: MaterialStateProperty.all(Colors.white),
+                    ),
                   ),
                   const SizedBox(width: 35),
                   ElevatedButton(
                     onPressed: () => resetTodo(),
                     child: Text("Reset To-do"),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.white),
+                      foregroundColor: MaterialStateProperty.all(Colors.red),
+                    ),
                   ),
                 ],
               ),
-              Text(str),
+              Padding(padding: EdgeInsetsGeometry.all(10)),
+              Text(str, style: TextStyle(color: Colors.pink)),
+              Padding(padding: EdgeInsetsGeometry.all(10)),
               Expanded(
-                child: ListView.builder(
-                  itemCount: todos.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      leading: Icon(Icons.arrow_circle_right),
-                      title: Text(todos[index]),
-                      trailing: TextButton(
-                        onPressed: () => {deleteTodo(index)},
-                        child: Icon(Icons.delete),
-                      ),
-                    );
-                  },
+                child: Card(
+                  child: ListView.builder(
+                    itemCount: todos.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        child: Padding(
+                          padding: EdgeInsetsGeometry.all(5),
+                          child: ListTile(
+                            leading: Icon(
+                              Icons.check_circle,
+                              color: Colors.pink,
+                            ),
+                            title: Text(todos[index]),
+                            trailing: TextButton(
+                              onPressed: () => {deleteTodo(index)},
+                              child: Icon(Icons.delete, color: Colors.red),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
             ],
@@ -75,6 +99,7 @@ class _TodoScreenState extends State<TodoScreen> {
   void resetTodo() {
     this.setState(() {
       todos = [];
+      str = 'Khatam tata bye bye';
     });
   }
 
@@ -82,6 +107,7 @@ class _TodoScreenState extends State<TodoScreen> {
     print(index);
     this.setState(() {
       todos.removeAt(index);
+      str = 'Bhai ne bole delete matlab delete';
     });
   }
 
@@ -99,7 +125,7 @@ class _TodoScreenState extends State<TodoScreen> {
     print(todo);
     if (todo == '') {
       this.setState(() {
-        str = 'Please enter a To-Do first';
+        str = 'Gandu To-Do nakh pehla';
       });
     } else {
       this.setState(() {
