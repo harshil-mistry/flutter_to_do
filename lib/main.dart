@@ -14,6 +14,7 @@ class TodoScreen extends StatefulWidget {
 class _TodoScreenState extends State<TodoScreen> {
 
   TextEditingController tec1 = TextEditingController();
+  var todos = ['demo1', 'demo2'];
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +42,9 @@ class _TodoScreenState extends State<TodoScreen> {
 
   void addTodo(){
     print("To-do called");
+    var todo = tec1.text;
+    tec1.text = '';
+    print(todo);
   }
 
 }
