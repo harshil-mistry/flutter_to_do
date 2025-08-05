@@ -13,7 +13,7 @@ class TodoScreen extends StatefulWidget {
 
 class _TodoScreenState extends State<TodoScreen> {
   TextEditingController tec1 = TextEditingController();
-  var todos = ['demo1', 'demo2'];
+  var todos = [];
   String str = '';
 
   @override
@@ -35,9 +35,19 @@ class _TodoScreenState extends State<TodoScreen> {
                 controller: tec1,
                 onChanged: (value) => {updateTodo(value)},
               ),
-              ElevatedButton(
-                onPressed: () => addTodo(),
-                child: Text("Add To-do"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () => addTodo(),
+                    child: Text("Add To-do"),
+                  ),
+                  const SizedBox(width: 35),
+                  ElevatedButton(
+                    onPressed: () => resetTodo(),
+                    child: Text("Reset To-do"),
+                  ),
+                ],
               ),
               Text(str),
               Expanded(
@@ -47,7 +57,10 @@ class _TodoScreenState extends State<TodoScreen> {
                     return ListTile(
                       leading: Icon(Icons.arrow_circle_right),
                       title: Text(todos[index]),
-                      trailing: TextButton(onPressed: de, child: child),
+                      trailing: TextButton(
+                        onPressed: () => {deleteTodo(index)},
+                        child: Icon(Icons.delete),
+                      ),
                     );
                   },
                 ),
@@ -59,8 +72,17 @@ class _TodoScreenState extends State<TodoScreen> {
     );
   }
 
-  void deleteTodo(index){
-    
+  void resetTodo() {
+    this.setState(() {
+      todos = [];
+    });
+  }
+
+  void deleteTodo(index) {
+    print(index);
+    this.setState(() {
+      todos.removeAt(index);
+    });
   }
 
   void updateTodo(value) {
@@ -75,9 +97,15 @@ class _TodoScreenState extends State<TodoScreen> {
     var todo = tec1.text;
     tec1.text = '';
     print(todo);
-    this.setState(() {
-      str = 'To-Do added';
-      todos.add(todo);
-    });
+    if (todo == '') {
+      this.setState(() {
+        str = 'Please enter a To-Do first';
+      });
+    } else {
+      this.setState(() {
+        str = 'To-Do added';
+        todos.add(todo);
+      });
+    }
   }
 }
