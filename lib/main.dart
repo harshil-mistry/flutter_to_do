@@ -15,6 +15,7 @@ class _TodoScreenState extends State<TodoScreen> {
 
   TextEditingController tec1 = TextEditingController();
   var todos = ['demo1', 'demo2'];
+  String str = '';
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +32,9 @@ class _TodoScreenState extends State<TodoScreen> {
           child: Column(
             children: [
               // TextField(controller: tec1, onChanged: (value) => {print(value)}, )
-              TextField(controller: tec1, onChanged: (value) => {print(value)},),
-              ElevatedButton(onPressed: () => addTodo(), child: Text("Add To-do"))
+              TextField(controller: tec1, onChanged: (value) => {updateTodo(value)},),
+              ElevatedButton(onPressed: () => addTodo(), child: Text("Add To-do")),
+              Text(str),
             ],
           ),
         )
@@ -40,11 +42,21 @@ class _TodoScreenState extends State<TodoScreen> {
     );
   }
 
+  void updateTodo(value){
+    print(value);
+    this.setState(() {
+      str = '';
+    });
+  }
+
   void addTodo(){
     print("To-do called");
     var todo = tec1.text;
     tec1.text = '';
     print(todo);
+    this.setState(() {
+      str = 'To-Do added';
+    });
   }
 
 }
