@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main(){
+void main() {
   runApp(TodoScreen());
 }
 
@@ -12,7 +12,6 @@ class TodoScreen extends StatefulWidget {
 }
 
 class _TodoScreenState extends State<TodoScreen> {
-
   TextEditingController tec1 = TextEditingController();
   var todos = ['demo1', 'demo2'];
   String str = '';
@@ -32,24 +31,41 @@ class _TodoScreenState extends State<TodoScreen> {
           child: Column(
             children: [
               // TextField(controller: tec1, onChanged: (value) => {print(value)}, )
-              TextField(controller: tec1, onChanged: (value) => {updateTodo(value)},),
-              ElevatedButton(onPressed: () => addTodo(), child: Text("Add To-do")),
+              TextField(
+                controller: tec1,
+                onChanged: (value) => {updateTodo(value)},
+              ),
+              ElevatedButton(
+                onPressed: () => addTodo(),
+                child: Text("Add To-do"),
+              ),
               Text(str),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: todos.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      leading: Icon(Icons.arrow_circle_right),
+                      title: Text(todos[index]),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
-        )
+        ),
       ),
     );
   }
 
-  void updateTodo(value){
+  void updateTodo(value) {
     print(value);
     this.setState(() {
       str = '';
     });
   }
 
-  void addTodo(){
+  void addTodo() {
     print("To-do called");
     var todo = tec1.text;
     tec1.text = '';
@@ -58,5 +74,4 @@ class _TodoScreenState extends State<TodoScreen> {
       str = 'To-Do added';
     });
   }
-
 }
