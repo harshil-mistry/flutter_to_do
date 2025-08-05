@@ -47,6 +47,7 @@ class _TodoScreenState extends State<TodoScreen> {
                     return ListTile(
                       leading: Icon(Icons.arrow_circle_right),
                       title: Text(todos[index]),
+                      trailing: TextButton(onPressed: de, child: child),
                     );
                   },
                 ),
@@ -56,6 +57,10 @@ class _TodoScreenState extends State<TodoScreen> {
         ),
       ),
     );
+  }
+
+  void deleteTodo(index){
+    
   }
 
   void updateTodo(value) {
@@ -72,6 +77,7 @@ class _TodoScreenState extends State<TodoScreen> {
     print(todo);
     this.setState(() {
       str = 'To-Do added';
+      todos.add(todo);
     });
   }
 }
